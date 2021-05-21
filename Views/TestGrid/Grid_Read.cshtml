@@ -1,0 +1,33 @@
+﻿@model TelerikMvc.Models.Person
+    @{ 
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+@{
+    ViewBag.Title = "Grid_Read";
+}
+
+<h2>Read_Grid</h2>
+<div>
+    @(Html.Kendo().Grid<TelerikMvc.Models.Person>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Firstname);
+        columns.Bound(p => p.Lastname);
+        columns.Bound(p => p.Company);
+        columns.Bound(p => p.ExperienceInYears);
+    })
+    .Pageable()
+    .Sortable()
+    .Filterable()
+    .HtmlAttributes(new { style = "height:550px"})
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .PageSize(5)
+    .Read(read => read.Action("Grid_Read", "Grid")))
+
+)
+</div>
+
